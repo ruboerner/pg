@@ -46,7 +46,7 @@ def plotresults(res, thk, ab2, rhoa, rhoaresponse):
 
     plt.show()
 
-def datenberechnen(ab2, mn2, res, thk, errPerc):
+def datenberechnen(ab2, mn2, res, thk, errPerc=0.0):
     nl = len(res)
     f = pg.core.DC1dModelling(nl, ab2, mn2)
     rhoa = f(thk + res)
