@@ -25,20 +25,23 @@ def dateninversion(ab2, mn2, rhoa, nl, lam, errPerc):
     resnew = model[nl-1:2*nl-1]
     return resnew, thknew, rhoaresponse, inv.relrms(), inv.chi2()
 
-def plotresults(res, thk, resnew, thknew, ab2, rhoa, rhoaresponse):
+def plotresults(res, thk, ab2, rhoa, rhoaresponse):
     fig, ax = plt.subplots(ncols=2, figsize=(14,6))
-    drawModel1D(ax[0], thk, res, plot='semilogx', color='r', label='true model')
-    drawModel1D(ax[0], thknew, resnew, color='b', label='recovered model', xlabel='Resistivity in $\Omega\cdot m$')
+    # drawModel1D(ax[0], thk, res, plot='semilogx', color='r', label='Startmodell')
+    drawModel1D(ax[0], thk, res, plot='semilogx', color='b', label='Inversionsmodell')
     ax[0].grid(True, which='both')
+    ax[0].set_ylabel('Teufe in m')
+    ax[0].set_xlabel(r'$\rho$ in $\Omega\cdot m$')
+    ax[0].set_xlim((10.0, 2000.0))
     ax[0].legend(loc='best')
 
-    ax[1].loglog(rhoa, ab2, 'rx-', label='data')
-    ax[1].loglog(rhoaresponse, ab2, 'b-', label='response')
+    ax[1].loglog(rhoa, ab2, 'rx-', label='Daten')
+    ax[1].loglog(rhoaresponse, ab2, 'b-', label='Modellantwort')
     ax[1].set_ylim((max(ab2), min(ab2)))
     ax[1].set_xlim((10.0, 1000.0))
     ax[1].grid(True, which='both')
     ax[1].legend(loc='best')
-    ax[1].set_xlabel(r'Apparent resistivity in $\Omega\cdot m$')
+    ax[1].set_xlabel(r'$\rho_s$ in $\Omega\cdot m$')
     ax[1].set_ylabel('AB/2 in m')
 
     plt.show()
@@ -49,3 +52,26 @@ def datenberechnen(ab2, mn2, res, thk, errPerc):
     rhoa = f(thk + res)
     rhoa = rhoa * (np.random.randn(len(rhoa)) * errPerc / 100. + 1.)
     return rhoa
+
+def plotdata(rhoa, ab2):
+    fig, ax = plt.subplots()
+    ax.loglog(ab2, rhoa, 'rx-', label='Daten')
+    ax.set_xlim((min(ab2), max(ab2)))
+    ax.set_ylim((10.0,1000.0))
+    ax.set_xlabel('AB/2 in m')
+    ax.set_ylabel(r'$\rho_s$ in $\Omega\cdot m$')
+    ax.legend(loc='best')
+    ax.grid(True, which='both')
+    plt.show()
+
+def datenvergleichen(rhoa, rhoanew, ab2):
+    fig, ax = plt.subplots(figsize=(6,6))
+    ax.loglog(rhoa, ab2, 'rx-', label='Daten')
+    ax.loglog(rhoanew, ab2, 'b-', label='Modellantwort')
+    ax.set_ylim((max(ab2), min(ab2)))
+    ax.set_xlim((10.0,1000.0))
+    ax.set_ylabel('AB/2 in m')
+    ax.set_xlabel(r'$\rho_s$ in $\Omega\cdot m$')
+    ax.legend(loc='best')
+    ax.grid(True, which='both')
+    plt.show()
