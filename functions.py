@@ -12,7 +12,7 @@ def dateninversion(ab2, mn2, rhoa, nl, lam, errPerc):
     paraDepth = max(ab2) / 3.0
     f.region(0).setStartValue(paraDepth / nl / 2.0)
     f.region(1).setStartValue(np.median(rhoa))
-    inv = pg.core.Inversion(rhoa, f, transRhoa, True)
+    inv = pg.core.Inversion(rhoa, f, transRhoa, False)
     inv.setRelativeError(errPerc / 100.0)
     inv.setLambda(lam)
     inv.setMarquardtScheme(0.9)
