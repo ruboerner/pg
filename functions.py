@@ -66,12 +66,12 @@ def plotdata(rhoa, ab2):
 
 def datenvergleichen(rhoa, rhoanew, ab2):
     fig, ax = plt.subplots(figsize=(6,6))
-    ax.loglog(rhoa, ab2, 'rx-', label='Daten')
-    ax.loglog(rhoanew, ab2, 'b-', label='Modellantwort')
-    ax.set_ylim((max(ab2), min(ab2)))
-    ax.set_xlim((10.0,1000.0))
-    ax.set_ylabel('AB/2 in m')
-    ax.set_xlabel(r'$\rho_s$ in $\Omega\cdot m$')
+    ax.loglog(ab2, rhoa, 'rx-', label='Daten')
+    ax.loglog(ab2, rhoanew, 'b-', label='Modellantwort')
+    ax.set_xlim((1.0, 100.0))
+    ax.set_ylim((10.0,1000.0))
+    ax.set_xlabel('AB/2 in m')
+    ax.set_ylabel(r'$\rho_s$ in $\Omega\cdot m$')
     ax.legend(loc='best')
     ax.grid(True, which='both')
     plt.show()
