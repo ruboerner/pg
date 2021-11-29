@@ -2,6 +2,8 @@ import numpy as np
 import pygimli as pg
 import matplotlib.pyplot as plt
 from pygimli.viewer.mpl import drawModel1D
+import warnings
+warnings.filterwarnings("ignore")
 def dateninversion(ab2, mn2, rhoa, nl, lam, errPerc):
     f = pg.core.DC1dModelling(nl, ab2, mn2)
     transThk = pg.trans.TransLog()
