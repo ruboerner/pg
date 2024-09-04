@@ -3,4 +3,4 @@ channels:
 - gimli
 - defaults
 dependencies:
-- pygimli>=1.2.2
+- pygimli>=1.5.1
